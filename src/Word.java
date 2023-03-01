@@ -1,36 +1,36 @@
 public class Word {
     private String word;
-    private String wordState;
+    private char[] wordState;
+    Game game;
     public Word(String word) {
+        this.game = game;
         this.word = word;
-        wordState = "";
+        wordState = new char[word.length()];
         for (int i = 0; i < word.length(); i++) {
-            wordState += "_";
+            wordState[i] = '*';
         }
     }
     String getWord() {
         return word;
     }
     void guessLetter(char c) {
+        boolean isInWord = false;
         for(int i = 0; i < word.length(); i++) {
             if(word.charAt(i) == c) {
-                System.out.println(c + " fanns i ordet!");
-                updateWordState(c);
-                return;
-            }
-            else{
-                System.out.println(c + " fanns inte i ordet.");
-                return;
+                isInWord = true;
+                wordState[i] = c;
             }
         }
-    }
-    void guessWord(String word) {
-
-    }
-    void updateWordState(char c) {
+        if(isInWord) System.out.println(c + " fanns i ordet!");
+        else {
+            System.out.println(c + " fanns inte i ordet!");
+            game.guessesLeft--;
+        }
     }
 
     public String getWordState() {
-        return wordState;
+        String str = "";
+        for (char c : wordState) str += c;
+        return str;
     }
 }

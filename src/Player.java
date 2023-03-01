@@ -14,7 +14,8 @@ public class Player {
     public void plusPoint(int points) {
         this.points += 1;
     }
-    public void resetPoints() {
-        this.points = 0;
+
+    public String getName() {
+        return name;
     }
 }
