@@ -13,7 +13,7 @@ public class Word {
     String getWord() {
         return word;
     }
-    void guessLetter(char c) {
+    void guessLetter(Game game, char c) {
         boolean isInWord = false;
         for(int i = 0; i < word.length(); i++) {
             if(word.charAt(i) == c) {

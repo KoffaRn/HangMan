@@ -4,18 +4,18 @@ public class Menu {
     Game game;
     void printMainMenu(Game game) throws FileNotFoundException {
         this.game = game;
-        String s = "1. Lägg till en svensk ordlista \n" +
-                "2. Starta nytt spel. \n" +
-                "3. Lägg till ord\n" +
-                "4. Ta bort ord \n" +
+        String s = "1. Starta nytt spel.\n" +
+                "2. Lägg till ord till ordlistan\n" +
+                "3. Ta bort ord från ordlistan\n" +
+                "4. Lägg till en svensk ordlista \n" +
                 "5. Avsluta spel";
         System.out.println(s);
         int choice = Helper.takeIntInput(1, 4, "Ange alternativ:");
         switch(choice) {
-            case 1 -> game.wl.addDict();
-            case 2 -> game.newGame();
-            case 3 -> game.wl.addToList(Helper.takeStringInput("Ange ord att lägga till:"));
-            case 4 -> game.wl.removeFromList(Helper.takeStringInput("Ange ord att ta bort:"));
+            case 1 -> game.newGame();
+            case 2 -> game.wl.addToList(Helper.takeStringInput("Ange ord att lägga till:"));
+            case 3 -> game.wl.removeFromList(Helper.takeStringInput("Ange ord att ta bort:"));
+            case 4 -> game.wl.addDict();
             case 5 -> System.exit(0);
         }
     }

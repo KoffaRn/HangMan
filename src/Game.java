@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Game {
     Wordlist wl;
@@ -6,6 +7,7 @@ public class Game {
     Menu menu;
     Word word;
     int guessesLeft;
+    ArrayList<Character> guessedLetters;
     public Game() throws FileNotFoundException {
         wl = new Wordlist();
         menu = new Menu();
@@ -16,6 +18,7 @@ public class Game {
     void newGame() throws FileNotFoundException {
         if(player == null) newPlayer();
         guessesLeft = 7;
+        guessedLetters = new ArrayList<>();
         if(wl.wordList.size() < 1) {
             System.out.println("Du har inga ord i ordlistan.");
             return;
@@ -30,10 +33,14 @@ public class Game {
     }
 
     public void guessLetter(char c) throws FileNotFoundException {
-        System.out.println("Du har " + guessesLeft + " gissningar kvar.");
+        if(guessedLetters.contains(c)) {
+            System.out.println("Du har redan gissat på " + c);
+            return;
+        }
         if(guessesLeft > 0) {
-            word.guessLetter(c);
+            word.guessLetter(this, c);
             checkWin();
+            guessedLetters.add(c);
         }
         else endGame();
     }
