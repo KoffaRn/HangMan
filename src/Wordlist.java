@@ -24,9 +24,6 @@ public class Wordlist {
     }
 
     public void addDict() throws FileNotFoundException {
-        Scanner sc = new Scanner(new File("svenska-ord.txt"));
-        while(sc.hasNext()) {
-            wordList.add(sc.nextLine());
-        }
+        FileHandler.readFileAsArray("svenska-ord.txt");
     }
 }
