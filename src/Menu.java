@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 
+// Class to handle the printing of menus and call appropriate functions
 public class Menu {
     Game game;
     void printMainMenu(Game game) throws FileNotFoundException {

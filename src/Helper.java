@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import static java.lang.System.in;
 
+//Helper class with useful functions (mostly take inputs of different kinds)
 public class Helper {
     static int takeIntInput(int min, int max, String q) {
         Scanner intscanner = new Scanner(in);
