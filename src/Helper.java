@@ -7,15 +7,15 @@ public class Helper {
     static int takeIntInput(int min, int max, String q) {
         Scanner intscanner = new Scanner(in);
         int number;
-        do {
-            System.out.println(q);
-            while(!intscanner.hasNextInt()) {
-                System.out.println("Ange ett nummer");
+        System.out.println(q);
+        while(!intscanner.hasNextInt()) {
+                System.out.println("Ange ett nummer mellan " + min + " och " + max);
                 intscanner.next();
-            }
-            number = intscanner.nextInt();
-        }while(number < min && number > max);
-        return number;
+        }
+        number = intscanner.nextInt();
+        if(number >= min && number <= max) return number;
+        else takeIntInput(min, max, q);
+        return 1;
     }
     static char takeCharInput(String q) {
         Scanner charscanner = new Scanner(in);

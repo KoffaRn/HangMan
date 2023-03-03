@@ -12,31 +12,32 @@ public class Game {
         wl = new Wordlist(); // Instantiate game wordlist
         menu = new Menu(); // instantiate game menu
         while(true) {  // Loop menu
-            String choice = menu.printMainMenu();
-            switch (choice) {
+            switch (menu.printMainMenu()) {
                 case "newGame" -> newGame();
-                case "addToList" -> wl.addToList(Helper.takeStringInput("Vilket ord vill du lägga till: "));
-                case "removeFromList" -> wl.removeFromList(Helper.takeStringInput("Vilket ord vill du ta bort: "));
+                case "addToList" -> wl.addToList(Helper.takeStringInput("Vilket ord vill du lägga till?"));
+                case "removeFromList" -> wl.removeFromList(Helper.takeStringInput("Vilket ord vill du ta bort?"));
                 case "addDict" -> wl.addDict();
+                default -> menu.printMainMenu();
             }
+
         }
     }
     //Function to instantiate a new game
     void newGame() throws FileNotFoundException {
-        if(player == null) newPlayer(); // If there is no player object, create one
-        guessesLeft = 7; // how many guesses should you have?
-        guessedLetters = new ArrayList<>(); // Reset or create array to hold guessed letters
         if(wl.wordList.size() < 1) { // If the list has no words, you cannot play hangman
             System.out.println("Du har inga ord i ordlistan.");
             return;
         }
+        if(player == null) newPlayer(); // If there is no player object, create one
+        guessesLeft = 7; // how many guesses should you have?
+        guessedLetters = new ArrayList<>(); // Reset or create array to hold guessed letters
         word = new Word(wl.randomWord()); // Select a new word from the list
         while(true) { // Loop and print the game menu
-            String choice = menu.printGameMenu(guessesLeft, word.getWordState());
-            switch(choice) {
+            switch(menu.printGameMenu(guessesLeft, word.getWordState())) {
                 case "guessLetter" -> guessLetter(Helper.takeCharInput("Vilken bokstav vill du gissa på:"));
                 case "guessWord" -> guessWord(Helper.takeStringInput("Vilket ord vill du gissa på:"));
-                case "playAgain" -> menu.printPlayAgain(word.getWord());
+                case "playAgain" -> playAgain();
+                default -> menu.printGameMenu(guessesLeft, word.getWordState());
             }
         }
     }
@@ -73,7 +74,7 @@ public class Game {
 
     //Function to guess the entire word
     public void guessWord(String guessWord) throws FileNotFoundException {
-        if(word.getWord().toLowerCase().equals(guessWord.toLowerCase())) winGame();
+        if(word.getWord().equalsIgnoreCase(guessWord)) winGame();
     }
 
     //Function to run when the player has won the game
@@ -81,13 +82,19 @@ public class Game {
         System.out.println("Grattis " + player.getName() + " vann!");
         player.plusPoint(1);
         System.out.println("Du har " + player.getPoints() + " poäng.");
-        String choice = menu.printPlayAgain(word.getWord());
-        if(choice.equals("newGame")) newGame();
+        playAgain();
     }
+
+    private void playAgain() throws FileNotFoundException {
+        switch (menu.printPlayAgain(word.getWord())) {
+            case "newGame" -> newGame();
+            default -> menu.printPlayAgain(word.getWord());
+        }
+    }
+
     //Function to run when the game ends without a win
     private void endGame() throws FileNotFoundException {
         System.out.println("Tyvärr - " + player.getName() + " förlorade!");
-        String choice = menu.printPlayAgain(word.getWord());
-        if(choice.equals("newGame")) newGame();
+        playAgain();
     }
 }
