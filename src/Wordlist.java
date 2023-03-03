@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 //Class to hold wordlist objects, logic to add words to list. Take input from a dictionary-file to wordlist,
-x
+
 public class Wordlist {
     ArrayList<String> wordList;
     public Wordlist() {

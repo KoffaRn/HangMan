@@ -12,7 +12,13 @@ public class Game {
         wl = new Wordlist(); // Instantiate game wordlist
         menu = new Menu(); // instantiate game menu
         while(true) {  // Loop menu
-            menu.printMainMenu(this);
+            String choice = menu.printMainMenu();
+            switch (choice) {
+                case "newGame" -> newGame();
+                case "addToList" -> wl.addToList(Helper.takeStringInput("Vilket ord vill du lägga till: "));
+                case "removeFromList" -> wl.removeFromList(Helper.takeStringInput("Vilket ord vill du ta bort: "));
+                case "addDict" -> wl.addDict();
+            }
         }
     }
     //Function to instantiate a new game
@@ -26,7 +32,12 @@ public class Game {
         }
         word = new Word(wl.randomWord()); // Select a new word from the list
         while(true) { // Loop and print the game menu
-            menu.printGameMenu(this);
+            String choice = menu.printGameMenu(guessesLeft, word.getWordState());
+            switch(choice) {
+                case "guessLetter" -> guessLetter(Helper.takeCharInput("Vilken bokstav vill du gissa på:"));
+                case "guessWord" -> guessWord(Helper.takeStringInput("Vilket ord vill du gissa på:"));
+                case "playAgain" -> menu.printPlayAgain(word.getWord());
+            }
         }
     }
     //Function to create new player object
@@ -36,7 +47,8 @@ public class Game {
     //Function to guess a letter
 
     public void guessLetter(char c) throws FileNotFoundException {
-        //Dont guess if player already guessed the letter
+        c = Character.toLowerCase(c);
+        //Don't guess if player already guessed the letter
         if(guessedLetters.contains(c)) {
             System.out.println("Du har redan gissat på " + c);
             return;
@@ -54,28 +66,28 @@ public class Game {
     //Function to see if the player has guessed all the correct letters
     private void checkWin() throws FileNotFoundException {
         String currentWord = word.getWordState();
-        if(word.getWord().equals(currentWord)) {
+        if(word.getWord().toLowerCase().equals(currentWord)) {
             winGame();
         }
     }
 
     //Function to guess the entire word
     public void guessWord(String guessWord) throws FileNotFoundException {
-        if(word.getWord().equals(guessWord)) winGame();
+        if(word.getWord().toLowerCase().equals(guessWord.toLowerCase())) winGame();
     }
 
     //Function to run when the player has won the game
     private void winGame() throws FileNotFoundException {
         System.out.println("Grattis " + player.getName() + " vann!");
-        System.out.println("Ordet var " + word.getWord() + ".");
         player.plusPoint(1);
         System.out.println("Du har " + player.getPoints() + " poäng.");
-        menu.printPlayAgain(this);
+        String choice = menu.printPlayAgain(word.getWord());
+        if(choice.equals("newGame")) newGame();
     }
     //Function to run when the game ends without a win
     private void endGame() throws FileNotFoundException {
         System.out.println("Tyvärr - " + player.getName() + " förlorade!");
-        System.out.println("Ordet var " + word.getWord() + ".");
-        menu.printPlayAgain(this);
+        String choice = menu.printPlayAgain(word.getWord());
+        if(choice.equals("newGame")) newGame();
     }
 }
