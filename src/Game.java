@@ -22,7 +22,7 @@ public class Game {
 
         }
     }
-    //Function to instantiate a new game
+    //Function to instantiate a new game session
     void newGame() throws FileNotFoundException {
         if(wl.wordList.size() < 1) { // If the list has no words, you cannot play hangman
             System.out.println("Du har inga ord i ordlistan.");
@@ -45,8 +45,7 @@ public class Game {
     void newPlayer() {
         player = new Player(Helper.takeStringInput("Spelarnamn:"));
     }
-    //Function to guess a letter
-
+    //Function to guess a letter, takes help from Word.guessLetter
     public void guessLetter(char c) throws FileNotFoundException {
         c = Character.toLowerCase(c);
         //Don't guess if player already guessed the letter
@@ -64,7 +63,7 @@ public class Game {
         else endGame();
     }
 
-    //Function to see if the player has guessed all the correct letters
+    //Function to see if the player has guessed all the correct letters (won the game session)
     private void checkWin() throws FileNotFoundException {
         String currentWord = word.getWordState();
         if(word.getWord().toLowerCase().equals(currentWord)) {
@@ -72,7 +71,7 @@ public class Game {
         }
     }
 
-    //Function to guess the entire word
+    //Function to guess the entire word and run winGame if its the right word
     public void guessWord(String guessWord) throws FileNotFoundException {
         if(word.getWord().equalsIgnoreCase(guessWord)) winGame();
     }
@@ -84,7 +83,7 @@ public class Game {
         System.out.println("Du har " + player.getPoints() + " poäng.");
         playAgain();
     }
-
+    //Do the user want to play again after wingame, endgame or exit game
     private void playAgain() throws FileNotFoundException {
         switch (menu.printPlayAgain(word.getWord())) {
             case "newGame" -> newGame();
@@ -92,7 +91,7 @@ public class Game {
         }
     }
 
-    //Function to run when the game ends without a win
+    //Function to run when the game ends with a loss
     private void endGame() throws FileNotFoundException {
         System.out.println("Tyvärr - " + player.getName() + " förlorade!");
         playAgain();

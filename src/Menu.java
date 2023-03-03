@@ -1,5 +1,6 @@
 // Class to handle the printing of menus and call appropriate functions
 public class Menu {
+    //Main menu
     String printMainMenu() {
         String s = """
                 1. Starta nytt spel.
@@ -26,6 +27,7 @@ public class Menu {
         }
         return null;
     }
+    //Game session menu
     String printGameMenu(int guessesLeft, String wordState)  {
         String s = "Nuvarande ord: " + wordState + "\n";
                 if(guessesLeft == 0) s += "Sista chansen nu! \n";
@@ -49,7 +51,7 @@ public class Menu {
         }
         return null;
     }
-
+    //Play again menu, takes the last word as input and prints it out
     String printPlayAgain(String word) {
         String s = "Ordet var " + word + ". Vill du spela igen? \n" +
                 "1. Ja\n" +

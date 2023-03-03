@@ -11,12 +11,12 @@ public class Wordlist {
     public Wordlist() {
         wordList = new ArrayList<String>();
     }
-//Add user input word to string
+    //Add user input word to string
     void addToList(String word) {
         wordList.add(word);
         System.out.println("Lade till " + word + " i ordlistan.");
     }
-    // Generate a random word
+    // Gets a random word and returns it
     String randomWord() {
         Random rnd = new Random();
         return wordList.get(rnd.nextInt(wordList.size()));
@@ -27,7 +27,6 @@ public class Wordlist {
         else System.out.println(word + " finns inte i ordlistan.");
     }
     // Add a dictionary file to the wordlist
-    //TODO: Expand to more wordlists, languages etc.
     public void addDict() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("svenska-ord.txt"));
         while(sc.hasNext()) {

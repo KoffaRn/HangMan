@@ -3,11 +3,12 @@
 public class Word {
     private String word;
     private char[] wordState;
-    Game game;
 
-    //Holds object word information
+    //Holds object word information and helps game-class with word-logic
     public Word(String word) {
         this.word = word;
+        //wordState to hold the state of the current wordState based on guesses, starts as *
+        // and for every correct guess, the letters are presented
         wordState = new char[word.length()];
         for (int i = 0; i < word.length(); i++) {
             wordState[i] = '*';
@@ -19,7 +20,7 @@ public class Word {
         return word;
     }
 
-    //Helps the game-class make letter guesses
+    //Helps the game-class make letter guesses and updates wordstate
     void guessLetter(Game game, char c) {
         boolean isInWord = false;
         for(int i = 0; i < word.length(); i++) {
@@ -35,8 +36,8 @@ public class Word {
         }
     }
 
-    // Prints the wordState (how many correct letters the player has so far)
-    public String getWordState() {
+    // Returns the char[] wordState as a string (how many correct letters the player has so far)
+    String getWordState() {
         String str = "";
         for (char c : wordState) str += c;
         return str;
