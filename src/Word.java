@@ -21,7 +21,7 @@ public class Word {
     }
 
     //Helps the game-class make letter guesses and updates wordstate
-    void guessLetter(Game game, char c) {
+    boolean guessLetter(char c) {
         boolean isInWord = false;
         for(int i = 0; i < word.length(); i++) {
             if(word.charAt(i) == c) {
@@ -32,8 +32,8 @@ public class Word {
         if(isInWord) System.out.println(c + " fanns i ordet!");
         else {
             System.out.println(c + " fanns inte i ordet!");
-            game.guessesLeft--;
         }
+        return isInWord;
     }
 
     // Returns the char[] wordState as a string (how many correct letters the player has so far)

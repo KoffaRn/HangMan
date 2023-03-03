@@ -55,7 +55,13 @@ public class Game {
         }
         //If guesses is over 0, send the guess to word-class to make guess and check if the guess resultet in win
         if(guessesLeft > 0) {
-            word.guessLetter(this, c);
+            if(word.guessLetter(c)) {
+                System.out.println(c + " fanns i ordet!");
+            }
+            else {
+                System.out.println(c + " fanns inte i ordet.");
+                guessesLeft -= 1;
+            }
             checkWin();
             guessedLetters.add(c);
         }
