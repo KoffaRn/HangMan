@@ -18,12 +18,14 @@ public class GUI extends JFrame implements ActionListener {
     private JButton guessWordButton; // a button for guessing a word
     private JTextField letterField; // a text field for entering a letter
     private JTextField wordField; // a text field for entering a word
+    private JLabel nameLabel;
 
     public GUI(Game game) {
         this.game = game; // assign the Game object to the field
 
         this.setSize(500, 500); // set the size of the frame
         this.setTitle("Hangman"); // set the title of the frame
+        this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // set what happens when you close the frame
 
         mainMenuPanel = new JPanel(); // create a new panel for the main menu
@@ -33,7 +35,17 @@ public class GUI extends JFrame implements ActionListener {
         wordLabel = new JLabel(""); // create another label with empty text
         guessedLettersLabel = new JLabel(""); // create another label with empty text
 
+        nameLabel = new JLabel("Player");
+
         newGameButton = new JButton("New Game");
+        newGameButton.addActionListener(this::pressNewGameButton);
+        this.add(nameLabel);
+        this.add(newGameButton);
+    }
+
+
+    public void pressNewGameButton(ActionEvent e) {
+        game.newPlayer(nameLabel.getText());
     }
 
     @Override
