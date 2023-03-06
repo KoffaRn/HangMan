@@ -8,10 +8,10 @@ public class Game {
     Word word;
     int guessesLeft;
     ArrayList<Character> guessedLetters;
-    public Game(GUI gui) throws FileNotFoundException {
+    public Game() throws FileNotFoundException {
+
         wl = new Wordlist();
         menu = new Menu();
-        gui.panel.add(button);
         while(true) {
             menu.printMainMenu(this);
         }
