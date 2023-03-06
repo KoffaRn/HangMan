@@ -9,7 +9,7 @@ public class Game {
     int guessesLeft;
     ArrayList<Character> guessedLetters;
     public Game() throws FileNotFoundException {
-        GUI gui = new GUI(this);
+        //GUI gui = new GUI(this);
         wl = new Wordlist();
         menu = new Menu();
         while(true) {
@@ -17,14 +17,14 @@ public class Game {
         }
     }
     void newGame() throws FileNotFoundException {
-        //if(player == null) newPlayer();
-        guessesLeft = 7;
-        guessedLetters = new ArrayList<>();
         if(wl.wordList.size() < 1) {
             System.out.println("Du har inga ord i ordlistan.");
             return;
         }
-        word = new Word(wl.randomWord());
+        if(player == null) newPlayer(Helper.takeStringInput("Ange spelarnamn:"));
+        guessesLeft = 7;
+        guessedLetters = new ArrayList<>();
+        word = wl.randomWord();
         while(true) {
             menu.printGameMenu(this);
         }

@@ -1,9 +1,7 @@
 public class Word {
     private String word;
     private char[] wordState;
-    Game game;
     public Word(String word) {
-        this.game = game;
         this.word = word;
         wordState = new char[word.length()];
         for (int i = 0; i < word.length(); i++) {

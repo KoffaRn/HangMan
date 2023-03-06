@@ -5,28 +5,35 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Wordlist {
-    ArrayList<String> wordList;
+    ArrayList<Word> wordList;
     public Wordlist() {
-        wordList = new ArrayList<String>();
+        wordList = new ArrayList<Word>();
     }
 
-    void addToList(String word) {
-        wordList.add(word);
-        System.out.println("Lade till " + word + " i ordlistan.");
+    void addToList(String stringWord) {
+        wordList.add(new Word(stringWord));
+        System.out.println("Lade till " + stringWord + " i ordlistan.");
     }
-    String randomWord() {
+    Word randomWord() {
         Random rnd = new Random();
         return wordList.get(rnd.nextInt(wordList.size()));
     }
     void removeFromList(String word) {
-        if(wordList.contains(word)) wordList.remove(word);
-        else System.out.println(word + " finns inte i ordlistan.");
+        boolean removed = false;
+        for(int i = 0; i < wordList.size(); i++) {
+            if(wordList.get(i).getWord().equals(word)) {
+                wordList.remove(i);
+                removed = true;
+            }
+        }
+        if(removed) System.out.println("Tog bort " + word + " från listan.");
+        else System.out.println(word + " fanns inte i ordlistan.");
     }
 
     public void addDict() throws FileNotFoundException {
         Scanner sc = new Scanner(new File("svenska-ord.txt"));
         while(sc.hasNext()) {
-            wordList.add(sc.nextLine());
+            wordList.add(new Word(sc.next()));
         }
     }
 }

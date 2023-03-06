@@ -35,8 +35,7 @@ public class Menu {
     }
 
     void printPlayAgain(Game game) throws FileNotFoundException {
-        String s = "Du vann! \n" +
-                "Vill du spela igen? \n" +
+        String s = "Vill du spela igen? \n" +
                 "1. Ja\n" +
                 "2. Nej";
         System.out.println(s);
