@@ -7,8 +7,10 @@ public class Game {
     Menu menu;
     Word word;
     int guessesLeft;
+    GameGUI gui;
     ArrayList<Character> guessedLetters;
     public Game() throws FileNotFoundException {
+        gui = new GameGUI(this);
         wl = new Wordlist(); // Instantiate game wordlist
         menu = new Menu(); // instantiate game menu
         while(true) {  // Loop menu
@@ -45,21 +47,26 @@ public class Game {
     void newPlayer() {
         player = new Player(Helper.takeStringInput("Spelarnamn:"));
     }
+    void guiGuess(String str) throws FileNotFoundException {
+        if(str.length() == 0) gui.printMsg("Du måste gissa på minst en bokstav");
+        else if(str.length() == 1) guessLetter(str.charAt(0));
+        else guessWord(str);
+    }
     //Function to guess a letter, takes help from Word.guessLetter
     public void guessLetter(char c) throws FileNotFoundException {
         c = Character.toLowerCase(c);
         //Don't guess if player already guessed the letter
         if(guessedLetters.contains(c)) {
-            System.out.println("Du har redan gissat på " + c);
+            gui.printMsg("Du har redan gissat " + c);
             return;
         }
         //If guesses is over 0, send the guess to word-class to make guess and check if the guess resultet in win
         if(guessesLeft > 0) {
             if(word.guessLetter(c)) {
-                System.out.println(c + " fanns i ordet!");
+                gui.printMsg(c + " fanns i ordet!");
             }
             else {
-                System.out.println(c + " fanns inte i ordet.");
+                gui.printMsg(c + " fanns inte i ordet.");
                 guessesLeft -= 1;
             }
             checkWin();
