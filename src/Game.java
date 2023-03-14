@@ -11,16 +11,7 @@ public class Game {
     public Game() throws FileNotFoundException {
         wl = new Wordlist(); // Instantiate game wordlist
         menu = new Menu(); // instantiate game menu
-        while(true) {  // Loop menu
-            switch (menu.printMainMenu()) {
-                case "newGame" -> newGame();
-                case "addToList" -> wl.addToList(Helper.takeStringInput("Vilket ord vill du lägga till?"));
-                case "removeFromList" -> wl.removeFromList(Helper.takeStringInput("Vilket ord vill du ta bort?"));
-                case "addDict" -> wl.addDict();
-                default -> menu.printMainMenu();
-            }
-
-        }
+        new NewGameGUI();
     }
     //Function to instantiate a new game session
     void newGame() throws FileNotFoundException {
